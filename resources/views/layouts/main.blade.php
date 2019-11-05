@@ -376,7 +376,7 @@
         getInfos: function() {
           axios.get("{{route('info.index')}}").then((response) => {
             this.info = response.data;
-            phoneNumber = this.info.phone.split('+', 2)[1];
+            phoneNumber = this.info.phone.split('+212 ', 2)[1];
             console.log(phoneNumber);
           }).catch((errors) => {
             console.log(errors);
@@ -451,7 +451,7 @@
         let msg = document.getElementById('whats-in').value;
         let relmsg = msg.replace(/ /g, "%20");
         //just change the numbers "1515551234567" for your number. Don't use +001-(555)1234567     
-        window.open(`https://wa.me/${phoneNumber}?text=` + relmsg, '_blank');
+        window.open(`https://wa.me/212${phoneNumber}?text=` + relmsg, '_blank');
 
       });
 
