@@ -1,13 +1,13 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
+@extends("layouts.main")
+@section('title','Rest Password')
+@section("content")
+<div class="container mt-5 pt-5">
+    <div class="row justify-content-center pb-5 pt-5">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card pt-5">
                 <div class="card-header">{{ __('Reset Password') }}</div>
 
-                <div class="card-body">
+                <div class="card-body bg-dark">
                     <form method="POST" action="{{ route('password.update') }}">
                         @csrf
 
@@ -17,7 +17,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+                                <input style="background-color=#343a40" id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
