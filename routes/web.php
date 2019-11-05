@@ -94,3 +94,9 @@ Route::patch('/info/{info}','TazerzitController@setInfos')->name('info.update')-
 //end info
 
 //TazerzithostelRestau
+
+// var data;
+// fetch('https://www.instagram.com/tazerzithostelresto/?__a=1').then((response)=>response.json())
+// .then((out) => {
+//   data = out;
+// });

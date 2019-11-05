@@ -234,7 +234,7 @@
             <h2 class="ftco-heading-2">Recent Blog</h2>
 
             <div v-for="instagram in instagram_collection" class="block-21 mb-4 d-flex">
-              <a class="blog-img mr-4" :style="'background-image: url('+instagram.node.display_url+');'"></a>
+              <a :href="'https://www.instagram.com/p/'+instagram.node.shortcode+'/'" class="blog-img mr-4" :style="'background-image: url('+instagram.node.display_url+');'"></a>
               <div class="text">
                 <h3 class="heading"><a :href="'https://www.instagram.com/p/'+instagram.node.shortcode+'/'">@{{instagram.node.edge_media_to_caption.edges[0].node.text}}</a></h3>
                 <div class="meta">
