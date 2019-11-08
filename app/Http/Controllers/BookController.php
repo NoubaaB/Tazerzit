@@ -51,6 +51,13 @@ class BookController extends Controller
 
         // $hostel=Hostel::find($id);
         // $book->hostel()->save($hostel);
+
+        $preData = [
+            'nom' => $data['lname'] . " " . $data['fname'],
+            'phone' => $data['phone'],
+        ];
+        TazerzitController::sendSMS($preData);
+
         return $book;
     }
 

@@ -18,7 +18,60 @@
 	</div>
 </section>
 
-<section class="ftco-intro">
+<section id="infoHeader" class="ftco-intro">
+	@if(Auth::user())
+	<!-- updateStory -->
+	<div id="updateInfoHeader" class="modal fade pt-5">
+		<div class="modal-dialog">
+			<div class="modal-content bg-dark">
+				<form method="post" enctype='multipart/form-data'>
+					@csrf
+					<div class="modal-header">
+						<h4 class="modal-title">Update Story</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div>
+							<div class="form-group">
+								<label for="Menu">Phone</label>
+								<input v-model="info.phone" type="tel" name="Phone" class="form-control" placeholder="Phone...">
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label for="Menu">Under Phone Text</label>
+								<input v-model="info.phoneText" type="text" name="text" class="form-control" placeholder="Write Phone Text...">
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label for="Menu">Adress</label>
+								<input v-model="info.adress" name="text" type="text" class="form-control" placeholder="Write Adress...">
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label for="Menu">Open Days</label>
+								<input v-model="info.openDays" type="text" name="text" class="form-control" placeholder="Write Open Days...">
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<label for="Menu">Time</label>
+								<input v-model="info.time" name="text" type="text" class="form-control" placeholder="Write Time...">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-outline-danger" data-dismiss="modal" value="Cancel">
+						<input type="button" @click="setInfos" class="btn btn-success" data-dismiss="modal" value="Save">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- End updateStory -->
+	@endif
 	<div class="container-wrap">
 		<div class="wrap d-md-flex align-items-xl-end">
 			<div class="info">
@@ -26,28 +79,35 @@
 					<div class="col-md-4 d-flex ftco-animate">
 						<div class="icon"><span class="icon-phone"></span></div>
 						<div class="text">
-							<h3>000 (123) 456 7890</h3>
-							<p>A small river named Duden flows by their place and supplies.</p>
+							<h3>@{{info.phone}}</h3>
+							<p>@{{info.phoneText}}</p>
 						</div>
 					</div>
 					<div class="col-md-4 d-flex ftco-animate">
 						<div class="icon"><span class="icon-my_location"></span></div>
 						<div class="text">
-							<h3>198 West 21th Street</h3>
-							<p> 203 Fake St. Mountain View, San Francisco, California, USA</p>
+							<h3>Adress</h3>
+							<p>@{{info.adress}}</p>
 						</div>
 					</div>
 					<div class="col-md-4 d-flex ftco-animate">
 						<div class="icon"><span class="icon-clock-o"></span></div>
 						<div class="text">
-							<h3>Open Monday-Friday</h3>
-							<p>8:00am - 9:00pm</p>
+							<h3>@{{info.openDays}}</h3>
+							<p>@{{info.time}}</p>
+						</div>
+					</div>
+					<div class="col-md-4 d-flex ftco-animate pl-5">
+						<div class="text">
+							@if(Auth::user())
+							<p><a href="#updateInfoHeader" class="btn btn-info  p-3 px-xl-4 py-xl-3" data-toggle='modal'>Update Infos</a></p>
+							@endif
 						</div>
 					</div>
 				</div>
 			</div>
-			<div id="table" class="book p-4">
-				<h3>Reserve a Table</h3>
+			<div id="table1" class="book p-4">
+				<h3>Book a Table</h3>
 				<form action="{{route('table.reserve.add')}}" class="appointment-form">
 					<div class="d-md-flex">
 						<div class="form-group">
@@ -530,8 +590,8 @@
 			},
 			add: function() {
 				this.fd = new FormData();
-				if (document.forms[2].image.files[0]) {
-					this.fd.append('image', document.forms[2].image.files[0], document.forms[2].image.files[0].name);
+				if (document.forms[3].image.files[0]) {
+					this.fd.append('image', document.forms[3].image.files[0], document.forms[3].image.files[0].name);
 				}
 				this.fd.append('nom', this.MenuModel.nom);
 				this.fd.append('prix', this.MenuModel.prix);
@@ -598,8 +658,8 @@
 			},
 			update: function() {
 				this.fd = new FormData();
-				if (document.forms[2].image.files[0]) {
-					this.fd.append('image', document.forms[2].image.files[0], document.forms[2].image.files[0].name);
+				if (document.forms[3].image.files[0]) {
+					this.fd.append('image', document.forms[3].image.files[0], document.forms[3].image.files[0].name);
 				}
 				this.fd.append('id', this.MenuModel.id);
 				this.fd.append('nom', this.MenuModel.nom);
@@ -691,7 +751,7 @@
 </script>
 <script>
 	new Vue({
-		el: "#table",
+		el: "#infoHeader",
 		data: {
 			table: {
 				id: 0,
@@ -701,13 +761,22 @@
 				time: "",
 				phone: "",
 				message: "",
-			}
+			},
+			info: {
+				id: 0,
+				phone: '',
+				location: '',
+				email: '',
+				about: '',
+				story: '',
+				menu: '',
+			},
 		},
 		methods: {
 			addTable: function() {
 				console.log("enter");
-				this.table.date = document.getElementsByName('date')[0].value;
-				this.table.time = document.getElementsByName('time')[0].value;
+				this.table.date = document.getElementsByName('date')[0].value == '' ? document.getElementsByName('date')[1].value : document.getElementsByName('date')[0].value;
+				this.table.time = document.getElementsByName('time')[0].value == '' ? document.getElementsByName('time')[1].value : document.getElementsByName('time')[0].value;
 				if (this.table.date == "") {
 					swal({
 						position: 'top-end',
@@ -748,11 +817,42 @@
 					timer: 1500
 				});
 
-			}
+			},
+			getInfos: function() {
+				axios.get("{{route('info.index')}}").then((response) => {
+					this.info = response.data;
+					console.log(this.info);
+				}).catch((errors) => {
+					console.log(errors);
+				});
+			},
+			setInfos: function() {
+				axios({
+					method: 'post',
+					url: `{{url("/info")}}/${this.info.id}`,
+					data: this.info,
+					config: {
+						headers: {
+							'Content-Type': 'multipart/form-data'
+						}
+					}
+				}).then((response) => {
+					this.info = response.data;
+					swal({
+						position: 'top-end',
+						type: 'success',
+						title: 'Update Information With Success',
+						showConfirmButton: false,
+						timer: 3000
+					});
+				}).catch((errors) => {
+					console.log(errors);
+				});
+			},
 		},
 		mounted: function() {
-
-		},
+			this.getInfos();
+		}
 	});
 </script>
 

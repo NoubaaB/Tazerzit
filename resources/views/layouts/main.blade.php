@@ -297,7 +297,7 @@
   <div class="nav-bottom">
     <div class="popup-whatsapp fadeIn">
       <div class="content-whatsapp -top"><button type="button" class="closePopup">
-          <i class="icon icon-close">
+          <i style="color:white;" class="icon icon-close">
 
           </i>
         </button>
@@ -384,7 +384,7 @@
         },
         setInfos: function() {
           axios({
-            method: 'patch',
+            method: 'post',
             url: `{{url("/info")}}/${this.info.id}`,
             data: this.info,
             config: {

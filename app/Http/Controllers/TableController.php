@@ -52,6 +52,11 @@ class TableController extends Controller
             "phone"=>$data['phone'],
             "message"=>$data['message'],
         ]);
+        $preData=[
+            'nom'=> $data['lname'] . " " . $data['fname'],
+            'phone'=> $data['phone'],
+        ];
+        TazerzitController::sendSMS($preData);
         return $table;
     }
 

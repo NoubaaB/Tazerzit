@@ -90,7 +90,7 @@ Route::post("/sendEmail",'TazerzitController@email')->name('sendEmail');
 
 //info
 Route::get('/info','TazerzitController@getInfos')->name('info.index');
-Route::patch('/info/{info}','TazerzitController@setInfos')->name('info.update')->middleware('auth');
+Route::post('/info/{info}','TazerzitController@setInfos')->name('info.update')->middleware('auth');
 //end info
 
 //TazerzithostelRestau

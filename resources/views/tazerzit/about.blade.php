@@ -271,6 +271,8 @@
 	new Vue({
 		el: "#story",
 		data: {
+			ModelDataDrinks: [],
+
 			info: {
 				id: 0,
 				phone: '',
@@ -282,6 +284,14 @@
 			},
 		},
 		methods: {
+			getDrink: function() {
+				axios.get("{{route('getMenu','DRINK')}}").then((response) => {
+					this.ModelDataDrinks = response.data;
+					console.log(this.ModelDataDrinks);
+				}).catch((errors) => {
+					console.log(errors);
+				});
+			},
 			getInfos: function() {
 				axios.get("{{route('info.index')}}").then((response) => {
 					this.info = response.data;
@@ -316,6 +326,7 @@
 		},
 		mounted: function() {
 			this.getInfos();
+			this.getDrink();
 		}
 	});
 </script>
